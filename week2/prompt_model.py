@@ -4,8 +4,21 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+ALIASES = {
+    "g25f":  "gemini-2.5-flash",
+    "g25l":  "gemini-2.5-flash-lite",
+    "g3f":   "gemini-3-flash-preview",
+    "g31l":  "gemini-3.1-flash-lite",
+    "gm26":  "gemma-4-26b-a4b-it",
+    "gm31":  "gemma-4-31b-it",
+    "ollama": "llama3.1",
+    "ophi":  "phi3",
+    "ods":   "deepseek-r1:1.5b",
+}
+
 
 def prompt_model(model: str, prompt: str) -> str:
+    model = ALIASES.get(model, model)  # resolve alias before routing
     if "gemini" in model or "gemma" in model:
         try:
             from google import genai
@@ -22,18 +35,6 @@ def prompt_model(model: str, prompt: str) -> str:
         except Exception as e:
             return f"[Ollama Error] {e}"
 
-
-ALIASES = {
-    "g25f":  "gemini-2.5-flash",
-    "g25l":  "gemini-2.5-flash-lite",
-    "g3f":   "gemini-3-flash-preview",
-    "g31l":  "gemini-3.1-flash-lite",
-    "gm26":  "gemma-4-26b-a4b-it",
-    "gm31":  "gemma-4-31b-it",
-    "ollama": "llama3.1",
-    "ophi":  "phi3",
-    "ods":   "deepseek-r1:1.5b",
-}
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
