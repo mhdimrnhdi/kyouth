@@ -131,5 +131,5 @@ def tag_data(db_url: str):
 
 
 if __name__ == "__main__":
-    db_path = sys.argv[1] if len(sys.argv) > 1 else "data/resources/jobs_d1.db"
+    db_path = sys.argv[1] if len(sys.argv) > 1 else "data/jobs_d1.db"
     tag_data(db_path)
